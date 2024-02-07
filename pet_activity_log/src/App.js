@@ -19,10 +19,24 @@ function App() {
     })
   }
 
+  function addNewPageHandler(pageData) {
+    setPagesState(prevState => {
+      const newPage = {
+        ...pageData,
+        dateId: `${new Date().toDateString()} - ${new Date().getHours()}:${new Date().getMinutes()}.${new Date().getSeconds()}`
+      }
+
+      return {
+        ...prevState,
+        pages: [...prevState.pages, newPage]
+      }
+    })
+  }
+  console.log(pagesState.pages)
   let content;
 
   if (pagesState.selectedPageId === null) {
-    content = <NewPage />
+    content = <NewPage onAdd={addNewPageHandler}/>
   } else if (pagesState.selectedPageId === undefined) {
     content = <NoPageSelected onAddPageHandler={addPageHandler} />
   }
