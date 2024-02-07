@@ -1,15 +1,40 @@
+import { useState } from 'react'
 import Input from "./Input.jsx"
 
-function NewPage() {
+function NewPage({onAdd}) {
+    let [pageTitle, setPageTitle] = useState('')
+    let [pageDescription, setPageDescription] = useState('')
+    let [pageDate, setPageDate] = useState('')
+
+    const getPageTitle = function(event) {
+        setPageTitle(event.target.value)
+    }
+
+    const getPageDescription = function(event) {
+        setPageDescription(event.target.value)
+    }
+
+    const SaveButtonHandler = function() {
+        let enteredTitle = pageTitle
+        let enteredDescription = pageDescription
+        setPageDate(`${new Date().toDateString()} - ${new Date().getHours()}:${new Date().getMinutes()}.${new Date().getSeconds()}`)
+        
+        onAdd({
+            title: enteredTitle,
+            description: enteredDescription,
+        })
+    }
+
+    
     return (
         <div className="w-[35rem] mt-16">
             <menu className="flex items-center justify-end gap-4 my-4">
                 <li><button className="text-stone-800 hover:text-stone-950">Cancel</button></li>
-                <li><button className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950">Save</button></li>
+                <li><button className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"  onClick={SaveButtonHandler}>Save</button></li>
             </menu>
-            <Input label="Title" />
-            <Input label="Description" textarea />
-            <Input label="Due Date" />
+            <Input type="text" value={pageTitle} onChange={getPageTitle} label="Title" />
+            <Input value={pageDescription} onChange={getPageDescription} label="Description" textarea />
+            <p>{pageDate}</p>
         </div>
     )
 }
