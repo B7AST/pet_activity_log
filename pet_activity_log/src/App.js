@@ -28,11 +28,12 @@ function App() {
 
       return {
         ...prevState,
+        selectedPageId: undefined,
         pages: [...prevState.pages, newPage]
       }
     })
   }
-  console.log(pagesState.pages)
+  
   let content;
 
   if (pagesState.selectedPageId === null) {
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSidebar onAddPageHandler={addPageHandler} />
+      <ProjectSidebar onAddPageHandler={addPageHandler} pages={pagesState.pages}/>
       {content}
     </main>
   );
