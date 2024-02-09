@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import NewPage from "./components/NewPage.jsx";
-import NoPageSelected from "./components/NoPageSelected.jsx";
-import ProjectSidebar from "./components/ProjectsSidebar.jsx";
+import NewPage from './components/NewPage.jsx';
+import NoPageSelected from './components/NoPageSelected.jsx';
+import ProjectSidebar from './components/ProjectsSidebar.jsx';
 
 function App() {
   const [pagesState, setPagesState] = useState({
@@ -15,7 +15,16 @@ function App() {
       return {
         ...prevState,
         selectedPageId: null,
-      }
+      };
+    })
+  };
+
+  function addProjectCancelButtonHandler() {
+    setPagesState(prevState => {
+      return {
+        ...prevState,
+        selectedPageId: undefined,
+      };
     })
   }
 
@@ -30,14 +39,14 @@ function App() {
         ...prevState,
         selectedPageId: undefined,
         pages: [...prevState.pages, newPage]
-      }
+      };
     })
-  }
+  };
   
   let content;
 
   if (pagesState.selectedPageId === null) {
-    content = <NewPage onAdd={addNewPageHandler}/>
+    content = <NewPage onAdd={addNewPageHandler} onCancel={addProjectCancelButtonHandler}/>
   } else if (pagesState.selectedPageId === undefined) {
     content = <NoPageSelected onAddPageHandler={addPageHandler} />
   }
