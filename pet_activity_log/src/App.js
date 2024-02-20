@@ -52,21 +52,31 @@ function App() {
       };
     })
   };
-  
+
+  function deletePageHandler() {
+    setPagesState(prevState => {
+      return {
+        ...prevState,
+        selectedPageId: undefined,
+        pages: prevState.pages.filter((page) => page.dateId !== prevState.selectedPageId)
+      };
+    })
+  }
+
   let selectedPage = pagesState.pages.find(page => page.dateId === pagesState.selectedPageId)
   console.log(pagesState.pages)
 
-  let content = <SelectedPage page={selectedPage}/>;
+  let content = <SelectedPage page={selectedPage} onDelete={deletePageHandler} />;
 
   if (pagesState.selectedPageId === null) {
-    content = <NewPage onAdd={addNewPageHandler} onCancel={addProjectCancelButtonHandler}/>
+    content = <NewPage onAdd={addNewPageHandler} onCancel={addProjectCancelButtonHandler} />
   } else if (pagesState.selectedPageId === undefined) {
     content = <NoPageSelected onAddPageHandler={addPageHandler} />
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSidebar onAddPageHandler={addPageHandler} pages={pagesState.pages} onSelectPage={selectPageHandler}/>
+      <ProjectSidebar onAddPageHandler={addPageHandler} pages={pagesState.pages} onSelectPage={selectPageHandler} />
       {content}
     </main>
   );
