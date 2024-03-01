@@ -1,4 +1,6 @@
-function SelectedPage({ page, onDelete }) {
+import Activities from './Activities.jsx';
+
+function SelectedPage({ page, onDelete, onAddActivity, onDeleteActivity, activities }) {
     // let formattedDate = new Date(page.dateId).toLocaleDateString('en-US', {
     //     year: 'numeric',
     //     month: 'short',
@@ -15,6 +17,7 @@ function SelectedPage({ page, onDelete }) {
                 <p className="mb-4 text-stone-400">{page.dateId}</p>
                 <p className="text-stone-600 whitespace-pre-wrap">{page.description}</p>
             </header>
+            <Activities onAdd={text => onAddActivity(text, page.dateId)} onDelete={activityId => onDeleteActivity(activityId, page.dateId)} activities={page.activities} />
         </div>
     )
 };
