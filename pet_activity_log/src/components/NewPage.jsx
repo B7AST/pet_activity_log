@@ -34,6 +34,7 @@ function NewPage({ onAdd, onCancel }) {
     onAdd({
       title: enteredTitle,
       description: enteredDescription,
+      activities: [],
     });
   };
 
